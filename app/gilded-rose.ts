@@ -25,7 +25,7 @@ export class GildedRose {
       if (roseName != 'Aged Brie' && roseName != 'Backstage passes to a TAFKAL80ETC concert') {
         if (this.items[i].quality > 0) {
           if (roseName != 'Sulfuras, Hand of Ragnaros') {
-            this.items[i].quality = this.items[i].quality - 1
+            this.decreaseQuality(i);
           }
         }
       } else {
@@ -34,39 +34,55 @@ export class GildedRose {
           if (roseName == 'Backstage passes to a TAFKAL80ETC concert') {
             if (this.items[i].sellIn < 11) {
               if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1
+                this.increaseQuality(i);
               }
             }
             if (this.items[i].sellIn < 6) {
               if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1
+                this.increaseQuality(i);
               }
             }
           }
         }
       }
       if (roseName != 'Sulfuras, Hand of Ragnaros') {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
+        this.decreaseSellIn(i);
       }
       if (this.items[i].sellIn < 0) {
         if (roseName != 'Aged Brie') {
           if (roseName != 'Backstage passes to a TAFKAL80ETC concert') {
             if (this.items[i].quality > 0) {
               if (roseName != 'Sulfuras, Hand of Ragnaros') {
-                this.items[i].quality = this.items[i].quality - 1
+                this.decreaseQuality(i)
               }
             }
           } else {
-            this.items[i].quality = this.items[i].quality - this.items[i].quality
+            this.restartQuality(i);
           }
         } else {
           if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1
+            this.increaseQuality(i);
           }
         }
       }
     }
 
     return this.items;
+  }
+
+  private decreaseSellIn(i: number) {
+    this.items[i].sellIn = this.items[i].sellIn - 1;
+  }
+
+  private restartQuality(i: number) {
+    this.items[i].quality = this.items[i].quality - this.items[i].quality
+  }
+
+  private increaseQuality(i: number) {
+    this.items[i].quality = this.items[i].quality + 1
+  }
+
+  private decreaseQuality(i: number) {
+    this.items[i].quality = this.items[i].quality - 1
   }
 }
