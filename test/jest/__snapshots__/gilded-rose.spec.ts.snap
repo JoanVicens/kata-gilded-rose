@@ -3,49 +3,49 @@
 exports[`Gilded Rose should do a snapshot for 2 days 1`] = `
 Array [
   Item {
+    "daysLeftToSell": 8,
     "name": "+5 Dexterity Vest",
     "quality": 18,
-    "sellIn": 8,
   },
   Item {
+    "daysLeftToSell": 0,
     "name": "Aged Brie",
     "quality": 2,
-    "sellIn": 0,
   },
   Item {
+    "daysLeftToSell": 3,
     "name": "Elixir of the Mongoose",
     "quality": 5,
-    "sellIn": 3,
   },
   Item {
+    "daysLeftToSell": 0,
     "name": "Sulfuras, Hand of Ragnaros",
     "quality": 80,
-    "sellIn": 0,
   },
   Item {
+    "daysLeftToSell": -1,
     "name": "Sulfuras, Hand of Ragnaros",
     "quality": 80,
-    "sellIn": -1,
   },
   Item {
+    "daysLeftToSell": 13,
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 22,
-    "sellIn": 13,
   },
   Item {
+    "daysLeftToSell": 8,
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 50,
-    "sellIn": 8,
   },
   Item {
+    "daysLeftToSell": 3,
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 50,
-    "sellIn": 3,
   },
   Item {
+    "daysLeftToSell": 1,
     "name": "Conjured Mana Cake",
     "quality": 4,
-    "sellIn": 1,
   },
 ]
 `;
@@ -53,49 +53,49 @@ Array [
 exports[`Gilded Rose should do a snapshot for 10 days 1`] = `
 Array [
   Item {
+    "daysLeftToSell": 0,
     "name": "+5 Dexterity Vest",
     "quality": 10,
-    "sellIn": 0,
   },
   Item {
+    "daysLeftToSell": -8,
     "name": "Aged Brie",
     "quality": 18,
-    "sellIn": -8,
   },
   Item {
+    "daysLeftToSell": -5,
     "name": "Elixir of the Mongoose",
     "quality": 0,
-    "sellIn": -5,
   },
   Item {
+    "daysLeftToSell": 0,
     "name": "Sulfuras, Hand of Ragnaros",
     "quality": 80,
-    "sellIn": 0,
   },
   Item {
+    "daysLeftToSell": -1,
     "name": "Sulfuras, Hand of Ragnaros",
     "quality": 80,
-    "sellIn": -1,
   },
   Item {
+    "daysLeftToSell": 5,
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 35,
-    "sellIn": 5,
   },
   Item {
+    "daysLeftToSell": 0,
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 50,
-    "sellIn": 0,
   },
   Item {
+    "daysLeftToSell": -5,
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 0,
-    "sellIn": -5,
   },
   Item {
+    "daysLeftToSell": -7,
     "name": "Conjured Mana Cake",
     "quality": 0,
-    "sellIn": -7,
   },
 ]
 `;

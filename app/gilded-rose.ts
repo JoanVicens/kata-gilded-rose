@@ -1,13 +1,13 @@
-type rose = 'Aged Brie' | 'Sulfuras, Hand of Ragnaros' | 'Backstage passes to a TAFKAL80ETC concert';
+type product = 'Aged Brie' | 'Sulfuras, Hand of Ragnaros' | 'Backstage passes to a TAFKAL80ETC concert';
 
 export class Item {
-  name: rose;
-  sellIn: number;
+  name: product;
+  daysLeftToSell: number;
   quality: number;
 
-  constructor(name, sellIn, quality) {
+  constructor(name, daysLeftToSell, quality) {
     this.name = name;
-    this.sellIn = sellIn;
+    this.daysLeftToSell = daysLeftToSell;
     this.quality = quality;
   }
 }
@@ -21,17 +21,17 @@ export class GildedRose {
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
-      let roseName = this.items[i].name;
-      if (roseName == 'Aged Brie' || roseName == 'Backstage passes to a TAFKAL80ETC concert') {
+      let productName = this.items[i].name;
+      if (productName == 'Aged Brie' || productName == 'Backstage passes to a TAFKAL80ETC concert') {
         if (this.hasNotReachedTopQualityLevel(i)) {
           this.increaseQuality(i);
-          if (roseName == 'Backstage passes to a TAFKAL80ETC concert') {
-            if (this.items[i].sellIn < 11) {
+          if (productName == 'Backstage passes to a TAFKAL80ETC concert') {
+            if (this.items[i].daysLeftToSell < 11) {
               if (this.hasNotReachedTopQualityLevel(i)) {
                 this.increaseQuality(i);
               }
             }
-            if (this.items[i].sellIn < 6) {
+            if (this.items[i].daysLeftToSell < 6) {
               if (this.hasNotReachedTopQualityLevel(i)) {
                 this.increaseQuality(i);
               }
@@ -41,12 +41,12 @@ export class GildedRose {
       } else {
         this.decreaseQuality(i);
       }
-      if (roseName != 'Sulfuras, Hand of Ragnaros') {
+      if (productName != 'Sulfuras, Hand of Ragnaros') {
         this.decreaseSellIn(i);
       }
-      if (this.items[i].sellIn < 0) {
-        if (roseName != 'Aged Brie') {
-          if (roseName != 'Backstage passes to a TAFKAL80ETC concert') {
+      if (this.items[i].daysLeftToSell < 0) {
+        if (productName != 'Aged Brie') {
+          if (productName != 'Backstage passes to a TAFKAL80ETC concert') {
             this.decreaseQuality(i);
           } else {
             this.restartQuality(i);
@@ -75,7 +75,7 @@ export class GildedRose {
   }
 
   private decreaseSellIn(i: number) {
-    this.items[i].sellIn = this.items[i].sellIn - 1;
+    this.items[i].daysLeftToSell = this.items[i].daysLeftToSell - 1;
   }
 
   private restartQuality(i: number) {
