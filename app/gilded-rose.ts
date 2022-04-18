@@ -23,16 +23,16 @@ export class GildedRose {
     for (let i = 0; i < this.items.length; i++) {
       let roseName = this.items[i].name;
       if (roseName == 'Aged Brie' || roseName == 'Backstage passes to a TAFKAL80ETC concert') {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1
+        if (this.hasNotReachedTopQualityLevel(i)) {
+          this.increaseQuality(i);
           if (roseName == 'Backstage passes to a TAFKAL80ETC concert') {
             if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
+              if (this.hasNotReachedTopQualityLevel(i)) {
                 this.increaseQuality(i);
               }
             }
             if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
+              if (this.hasNotReachedTopQualityLevel(i)) {
                 this.increaseQuality(i);
               }
             }
@@ -47,12 +47,12 @@ export class GildedRose {
       if (this.items[i].sellIn < 0) {
         if (roseName != 'Aged Brie') {
           if (roseName != 'Backstage passes to a TAFKAL80ETC concert') {
-            this.decreaseQuality(i)
+            this.decreaseQuality(i);
           } else {
             this.restartQuality(i);
           }
         } else {
-          if (this.items[i].quality < 50) {
+          if (this.hasNotReachedTopQualityLevel(i)) {
             this.increaseQuality(i);
           }
         }
@@ -62,10 +62,14 @@ export class GildedRose {
     return this.items;
   }
 
+  private hasNotReachedTopQualityLevel(i: number) {
+    return this.items[i].quality < 50;
+  }
+
   private decreaseQuality(i: number) {
     if (this.items[i].quality > 0) {
       if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-        this.items[i].quality = this.items[i].quality - 1
+        this.items[i].quality = this.items[i].quality - 1;
       }
     }
   }
@@ -75,10 +79,10 @@ export class GildedRose {
   }
 
   private restartQuality(i: number) {
-    this.items[i].quality = this.items[i].quality - this.items[i].quality
+    this.items[i].quality = this.items[i].quality - this.items[i].quality;
   }
 
   private increaseQuality(i: number) {
-    this.items[i].quality = this.items[i].quality + 1
+    this.items[i].quality = this.items[i].quality + 1;
   }
 }
