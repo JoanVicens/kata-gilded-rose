@@ -22,13 +22,7 @@ export class GildedRose {
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       let roseName = this.items[i].name;
-      if (roseName != 'Aged Brie' && roseName != 'Backstage passes to a TAFKAL80ETC concert') {
-        if (this.items[i].quality > 0) {
-          if (roseName != 'Sulfuras, Hand of Ragnaros') {
-            this.decreaseQuality(i);
-          }
-        }
-      } else {
+      if (roseName == 'Aged Brie' || roseName == 'Backstage passes to a TAFKAL80ETC concert') {
         if (this.items[i].quality < 50) {
           this.items[i].quality = this.items[i].quality + 1
           if (roseName == 'Backstage passes to a TAFKAL80ETC concert') {
@@ -44,6 +38,8 @@ export class GildedRose {
             }
           }
         }
+      } else {
+        this.decreaseQuality(i);
       }
       if (roseName != 'Sulfuras, Hand of Ragnaros') {
         this.decreaseSellIn(i);
@@ -51,11 +47,7 @@ export class GildedRose {
       if (this.items[i].sellIn < 0) {
         if (roseName != 'Aged Brie') {
           if (roseName != 'Backstage passes to a TAFKAL80ETC concert') {
-            if (this.items[i].quality > 0) {
-              if (roseName != 'Sulfuras, Hand of Ragnaros') {
-                this.decreaseQuality(i)
-              }
-            }
+            this.decreaseQuality(i)
           } else {
             this.restartQuality(i);
           }
@@ -70,6 +62,14 @@ export class GildedRose {
     return this.items;
   }
 
+  private decreaseQuality(i: number) {
+    if (this.items[i].quality > 0) {
+      if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
+        this.items[i].quality = this.items[i].quality - 1
+      }
+    }
+  }
+
   private decreaseSellIn(i: number) {
     this.items[i].sellIn = this.items[i].sellIn - 1;
   }
@@ -80,9 +80,5 @@ export class GildedRose {
 
   private increaseQuality(i: number) {
     this.items[i].quality = this.items[i].quality + 1
-  }
-
-  private decreaseQuality(i: number) {
-    this.items[i].quality = this.items[i].quality - 1
   }
 }
