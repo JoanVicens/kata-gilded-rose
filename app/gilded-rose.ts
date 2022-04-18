@@ -19,6 +19,7 @@ export class GildedRose {
     this.items = items;
   }
 
+  // ToDo. First of all: READ THE BLOODY README.md
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       let productName = this.items[i].name;
