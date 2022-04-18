@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Gilded Rose should do a snapshot 1`] = `
+exports[`Gilded Rose should do a snapshot for 2 days 1`] = `
 Array [
   Item {
     "name": "+5 Dexterity Vest",
@@ -46,6 +46,56 @@ Array [
     "name": "Conjured Mana Cake",
     "quality": 4,
     "sellIn": 1,
+  },
+]
+`;
+
+exports[`Gilded Rose should do a snapshot for 10 days 1`] = `
+Array [
+  Item {
+    "name": "+5 Dexterity Vest",
+    "quality": 10,
+    "sellIn": 0,
+  },
+  Item {
+    "name": "Aged Brie",
+    "quality": 18,
+    "sellIn": -8,
+  },
+  Item {
+    "name": "Elixir of the Mongoose",
+    "quality": 0,
+    "sellIn": -5,
+  },
+  Item {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "quality": 80,
+    "sellIn": 0,
+  },
+  Item {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "quality": 80,
+    "sellIn": -1,
+  },
+  Item {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "quality": 35,
+    "sellIn": 5,
+  },
+  Item {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "quality": 50,
+    "sellIn": 0,
+  },
+  Item {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "quality": 0,
+    "sellIn": -5,
+  },
+  Item {
+    "name": "Conjured Mana Cake",
+    "quality": 0,
+    "sellIn": -7,
   },
 ]
 `;
