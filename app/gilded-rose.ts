@@ -44,17 +44,16 @@ export class GildedRose {
       if (productName != 'Sulfuras, Hand of Ragnaros') {
         this.decreaseSellIn(i);
       }
-      if (this.items[i].daysLeftToSell < 0) {
-        if (productName != 'Aged Brie') {
-          if (productName != 'Backstage passes to a TAFKAL80ETC concert') {
-            this.decreaseQuality(i);
-          } else {
-            this.restartQuality(i);
-          }
-        } else {
+      let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
+      if (hasPassedSellingDate) {
+        if (productName == 'Aged Brie') {
           if (this.hasNotReachedTopQualityLevel(i)) {
             this.increaseQuality(i);
           }
+        } else if (productName == 'Backstage passes to a TAFKAL80ETC concert') {
+          this.restartQuality(i);
+        } else {
+          this.decreaseQuality(i);
         }
       }
     }
