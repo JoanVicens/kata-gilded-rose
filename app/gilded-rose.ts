@@ -28,25 +28,20 @@ export class GildedRose {
       }
 
       if (productName == 'Aged Brie') {
-        if (this.hasNotReachedTopQualityLevel(i)) {
-          this.increaseQuality(i);
-        }
-      } else if (productName != 'Backstage passes to a TAFKAL80ETC concert') {
+        this.updateAgedBrie(i);
+      }
+
+      if (productName != 'Aged Brie' && productName != 'Backstage passes to a TAFKAL80ETC concert') {
         this.decreaseQuality(i);
       }
       if (productName != 'Sulfuras, Hand of Ragnaros'
-        && productName != 'Backstage passes to a TAFKAL80ETC concert') {
+        && productName != 'Backstage passes to a TAFKAL80ETC concert'
+        && productName != 'Aged Brie') {
         this.decreaseSellIn(i);
       }
       let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
-      if (hasPassedSellingDate) {
-        if (productName == 'Aged Brie') {
-          if (this.hasNotReachedTopQualityLevel(i)) {
-            this.increaseQuality(i);
-          }
-        } else if (productName != 'Backstage passes to a TAFKAL80ETC concert'){
-          this.decreaseQuality(i);
-        }
+      if (hasPassedSellingDate && productName != 'Aged Brie' && productName != 'Backstage passes to a TAFKAL80ETC concert') {
+        this.decreaseQuality(i);
       }
     }
 
@@ -69,6 +64,19 @@ export class GildedRose {
     const hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
     if (hasPassedSellingDate) {
       this.restartQuality(i);
+    }
+  }
+
+  private updateAgedBrie(i: number) {
+    if (this.hasNotReachedTopQualityLevel(i)) {
+      this.increaseQuality(i);
+    }
+    this.decreaseSellIn(i);
+    let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
+    if (hasPassedSellingDate) {
+      if (this.hasNotReachedTopQualityLevel(i)) {
+        this.increaseQuality(i);
+      }
     }
   }
 
