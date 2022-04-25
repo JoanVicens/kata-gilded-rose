@@ -1,7 +1,7 @@
-type product = 'Aged Brie' | 'Sulfuras, Hand of Ragnaros' | 'Backstage passes to a TAFKAL80ETC concert';
+type Product = 'Aged Brie' | 'Sulfuras, Hand of Ragnaros' | 'Backstage passes to a TAFKAL80ETC concert';
 
 export class Item {
-  name: product;
+  name: Product;
   daysLeftToSell: number;
   quality: number;
 
@@ -26,17 +26,11 @@ export class GildedRose {
       if (productName == 'Aged Brie' || productName == 'Backstage passes to a TAFKAL80ETC concert') {
         if (this.hasNotReachedTopQualityLevel(i)) {
           this.increaseQuality(i);
-          if (productName == 'Backstage passes to a TAFKAL80ETC concert') {
-            if (this.items[i].daysLeftToSell < 11) {
-              if (this.hasNotReachedTopQualityLevel(i)) {
-                this.increaseQuality(i);
-              }
-            }
-            if (this.items[i].daysLeftToSell < 6) {
-              if (this.hasNotReachedTopQualityLevel(i)) {
-                this.increaseQuality(i);
-              }
-            }
+          if (this.isTheConcertDueInLessThan(11, productName, i)) {
+            this.increaseQuality(i);
+          }
+          if (this.isTheConcertDueInLessThan(6, productName, i)) {
+            this.increaseQuality(i);
           }
         }
       } else {
@@ -60,6 +54,12 @@ export class GildedRose {
     }
 
     return this.items;
+  }
+
+  private isTheConcertDueInLessThan(days: number, productName: Product, i: number) {
+    return productName == 'Backstage passes to a TAFKAL80ETC concert'
+      && this.items[i].daysLeftToSell < days
+      && this.hasNotReachedTopQualityLevel(i);
   }
 
   private hasNotReachedTopQualityLevel(i: number) {
