@@ -22,6 +22,10 @@ export class Item {
   public increaseQuality() {
     this.quality = this.quality + 1;
   }
+
+  public hasNotReachedTopQualityLevel() {
+    return this.quality < 50;
+  }
 }
 
 export class GildedRose {
@@ -63,7 +67,7 @@ export class GildedRose {
   }
 
   private updateConcertTicketsQuality(i: number) {
-    if (this.hasNotReachedTopQualityLevel(i)) {
+    if (this.items[i].hasNotReachedTopQualityLevel()) {
       this.items[i].increaseQuality();
       if (this.isTheConcertDueInLessThan(11, i)) {
         this.items[i].increaseQuality();
@@ -82,13 +86,13 @@ export class GildedRose {
   }
 
   private updateAgedBrie(i: number) {
-    if (this.hasNotReachedTopQualityLevel(i)) {
+    if (this.items[i].hasNotReachedTopQualityLevel()) {
       this.items[i].increaseQuality();
     }
     this.items[i].decreaseSellIn();
     let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
     if (hasPassedSellingDate) {
-      if (this.hasNotReachedTopQualityLevel(i)) {
+      if (this.items[i].hasNotReachedTopQualityLevel()) {
         this.items[i].increaseQuality();
       }
     }
@@ -96,13 +100,8 @@ export class GildedRose {
 
   private isTheConcertDueInLessThan(days: number, i: number) {
     return this.items[i].daysLeftToSell < days
-      && this.hasNotReachedTopQualityLevel(i);
+      && this.items[i].hasNotReachedTopQualityLevel();
   }
-
-  private hasNotReachedTopQualityLevel(i: number) {
-    return this.items[i].quality < 50;
-  }
-
   private decreaseQuality(i: number) {
     if (this.items[i].quality > 0) {
       if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
