@@ -26,6 +26,10 @@ export class Item {
   public hasNotReachedTopQualityLevel() {
     return this.quality < 50;
   }
+
+  public decreaseQuality() {
+    this.quality = this.quality - 1;
+  }
 }
 
 export class GildedRose {
@@ -48,21 +52,22 @@ export class GildedRose {
         this.updateAgedBrie(i);
         continue;
       }
-
-      this.decreaseOtherProductsQuality(i);
+      if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
+        this.decreaseOtherProductsQuality(i);
+      }
     }
 
     return this.items;
   }
 
   private decreaseOtherProductsQuality(i: number) {
-    this.decreaseQuality(i);
-    if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-      this.items[i].decreaseSellIn();
+    if (this.items[i].quality > 0) {
+      this.items[i].decreaseQuality();
     }
+    this.items[i].decreaseSellIn();
     let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
-    if (hasPassedSellingDate) {
-      this.decreaseQuality(i);
+    if (hasPassedSellingDate && this.items[i].quality > 0) {
+      this.items[i].decreaseQuality();
     }
   }
 
@@ -101,12 +106,5 @@ export class GildedRose {
   private isTheConcertDueInLessThan(days: number, i: number) {
     return this.items[i].daysLeftToSell < days
       && this.items[i].hasNotReachedTopQualityLevel();
-  }
-  private decreaseQuality(i: number) {
-    if (this.items[i].quality > 0) {
-      if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-        this.items[i].quality = this.items[i].quality - 1;
-      }
-    }
   }
 }
