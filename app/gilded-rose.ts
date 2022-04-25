@@ -23,20 +23,19 @@ export class GildedRose {
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       let productName = this.items[i].name;
-      if (productName == 'Aged Brie' || productName == 'Backstage passes to a TAFKAL80ETC concert') {
+      if (productName == 'Backstage passes to a TAFKAL80ETC concert') {
+        this.updateConcertTicketsQuality(i);
+      }
+
+      if (productName == 'Aged Brie') {
         if (this.hasNotReachedTopQualityLevel(i)) {
           this.increaseQuality(i);
-          if (this.isTheConcertDueInLessThan(11, productName, i)) {
-            this.increaseQuality(i);
-          }
-          if (this.isTheConcertDueInLessThan(6, productName, i)) {
-            this.increaseQuality(i);
-          }
         }
-      } else {
+      } else if (productName != 'Backstage passes to a TAFKAL80ETC concert') {
         this.decreaseQuality(i);
       }
-      if (productName != 'Sulfuras, Hand of Ragnaros') {
+      if (productName != 'Sulfuras, Hand of Ragnaros'
+        && productName != 'Backstage passes to a TAFKAL80ETC concert') {
         this.decreaseSellIn(i);
       }
       let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
@@ -45,9 +44,7 @@ export class GildedRose {
           if (this.hasNotReachedTopQualityLevel(i)) {
             this.increaseQuality(i);
           }
-        } else if (productName == 'Backstage passes to a TAFKAL80ETC concert') {
-          this.restartQuality(i);
-        } else {
+        } else if (productName != 'Backstage passes to a TAFKAL80ETC concert'){
           this.decreaseQuality(i);
         }
       }
@@ -56,9 +53,27 @@ export class GildedRose {
     return this.items;
   }
 
-  private isTheConcertDueInLessThan(days: number, productName: Product, i: number) {
-    return productName == 'Backstage passes to a TAFKAL80ETC concert'
-      && this.items[i].daysLeftToSell < days
+  private updateConcertTicketsQuality(i: number) {
+    if (this.hasNotReachedTopQualityLevel(i)) {
+      this.increaseQuality(i);
+      if (this.isTheConcertDueInLessThan(11, i)) {
+        this.increaseQuality(i);
+      }
+      if (this.isTheConcertDueInLessThan(6, i)) {
+        this.increaseQuality(i);
+      }
+    }
+    if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
+      this.decreaseSellIn(i);
+    }
+    const hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
+    if (hasPassedSellingDate) {
+      this.restartQuality(i);
+    }
+  }
+
+  private isTheConcertDueInLessThan(days: number, i: number) {
+    return this.items[i].daysLeftToSell < days
       && this.hasNotReachedTopQualityLevel(i);
   }
 
