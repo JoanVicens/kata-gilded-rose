@@ -10,6 +10,18 @@ export class Item {
     this.daysLeftToSell = daysLeftToSell;
     this.quality = quality;
   }
+
+  public decreaseSellIn() {
+    this.daysLeftToSell = this.daysLeftToSell - 1;
+  }
+
+  public restartQuality() {
+    this.quality = 0;
+  }
+
+  public increaseQuality() {
+    this.quality = this.quality + 1;
+  }
 }
 
 export class GildedRose {
@@ -42,7 +54,7 @@ export class GildedRose {
   private decreaseOtherProductsQuality(i: number) {
     this.decreaseQuality(i);
     if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-      this.decreaseSellIn(i);
+      this.items[i].decreaseSellIn();
     }
     let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
     if (hasPassedSellingDate) {
@@ -52,32 +64,32 @@ export class GildedRose {
 
   private updateConcertTicketsQuality(i: number) {
     if (this.hasNotReachedTopQualityLevel(i)) {
-      this.increaseQuality(i);
+      this.items[i].increaseQuality();
       if (this.isTheConcertDueInLessThan(11, i)) {
-        this.increaseQuality(i);
+        this.items[i].increaseQuality();
       }
       if (this.isTheConcertDueInLessThan(6, i)) {
-        this.increaseQuality(i);
+        this.items[i].increaseQuality();
       }
     }
     if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-      this.decreaseSellIn(i);
+      this.items[i].decreaseSellIn();
     }
     const hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
     if (hasPassedSellingDate) {
-      this.restartQuality(i);
+      this.items[i].restartQuality();
     }
   }
 
   private updateAgedBrie(i: number) {
     if (this.hasNotReachedTopQualityLevel(i)) {
-      this.increaseQuality(i);
+      this.items[i].increaseQuality();
     }
-    this.decreaseSellIn(i);
+    this.items[i].decreaseSellIn();
     let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
     if (hasPassedSellingDate) {
       if (this.hasNotReachedTopQualityLevel(i)) {
-        this.increaseQuality(i);
+        this.items[i].increaseQuality();
       }
     }
   }
@@ -97,17 +109,5 @@ export class GildedRose {
         this.items[i].quality = this.items[i].quality - 1;
       }
     }
-  }
-
-  private decreaseSellIn(i: number) {
-    this.items[i].daysLeftToSell = this.items[i].daysLeftToSell - 1;
-  }
-
-  private restartQuality(i: number) {
-    this.items[i].quality = this.items[i].quality - this.items[i].quality;
-  }
-
-  private increaseQuality(i: number) {
-    this.items[i].quality = this.items[i].quality + 1;
   }
 }
