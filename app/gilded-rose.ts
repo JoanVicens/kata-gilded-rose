@@ -25,27 +25,29 @@ export class GildedRose {
       let productName = this.items[i].name;
       if (productName == 'Backstage passes to a TAFKAL80ETC concert') {
         this.updateConcertTicketsQuality(i);
+        continue;
       }
 
       if (productName == 'Aged Brie') {
         this.updateAgedBrie(i);
+        continue;
       }
 
-      if (productName != 'Aged Brie' && productName != 'Backstage passes to a TAFKAL80ETC concert') {
-        this.decreaseQuality(i);
-      }
-      if (productName != 'Sulfuras, Hand of Ragnaros'
-        && productName != 'Backstage passes to a TAFKAL80ETC concert'
-        && productName != 'Aged Brie') {
-        this.decreaseSellIn(i);
-      }
-      let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
-      if (hasPassedSellingDate && productName != 'Aged Brie' && productName != 'Backstage passes to a TAFKAL80ETC concert') {
-        this.decreaseQuality(i);
-      }
+      this.decreaseOtherProductsQuality(i);
     }
 
     return this.items;
+  }
+
+  private decreaseOtherProductsQuality(i: number) {
+    this.decreaseQuality(i);
+    if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
+      this.decreaseSellIn(i);
+    }
+    let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
+    if (hasPassedSellingDate) {
+      this.decreaseQuality(i);
+    }
   }
 
   private updateConcertTicketsQuality(i: number) {
