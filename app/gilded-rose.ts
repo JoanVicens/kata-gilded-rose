@@ -100,6 +100,7 @@ export class GildedRose {
         item.updateAgedBrieQuality();
         continue;
       }
+
       if (item.name != 'Sulfuras, Hand of Ragnaros') {
         item.decreaseOtherProductsQuality();
       }
