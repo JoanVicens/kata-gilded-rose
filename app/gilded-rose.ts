@@ -43,7 +43,7 @@ export class GildedRose {
     for (let i = 0; i < this.items.length; i++) {
       let productName = this.items[i].name;
       if (productName == 'Backstage passes to a TAFKAL80ETC concert') {
-        this.updateConcertTicketsQuality(i);
+        this.updateConcertTicketsQuality(this.items[i]);
         continue;
       }
 
@@ -70,22 +70,22 @@ export class GildedRose {
     }
   }
 
-  private updateConcertTicketsQuality(i: number) {
-    if (this.items[i].hasNotReachedTopQualityLevel()) {
-      this.items[i].increaseQuality();
-      if (this.isTheConcertDueInLessThan(11, this.items[i])) {
-        this.items[i].increaseQuality();
+  private updateConcertTicketsQuality(item: Item) {
+    if (item.hasNotReachedTopQualityLevel()) {
+      item.increaseQuality();
+      if (this.isTheConcertDueInLessThan(11, item)) {
+        item.increaseQuality();
       }
-      if (this.isTheConcertDueInLessThan(6, this.items[i])) {
-        this.items[i].increaseQuality();
+      if (this.isTheConcertDueInLessThan(6, item)) {
+        item.increaseQuality();
       }
     }
-    if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-      this.items[i].decreaseSellIn();
+    if (item.name != 'Sulfuras, Hand of Ragnaros') {
+      item.decreaseSellIn();
     }
-    const hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
+    const hasPassedSellingDate = item.daysLeftToSell < 0;
     if (hasPassedSellingDate) {
-      this.items[i].restartQuality();
+      item.restartQuality();
     }
   }
 
