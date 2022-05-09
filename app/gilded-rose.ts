@@ -30,6 +30,54 @@ export class Item {
   public decreaseQuality() {
     this.quality = this.quality - 1;
   }
+
+  public decreaseOtherProductsQuality() {
+    if (this.quality > 0) {
+      this.decreaseQuality();
+    }
+    this.decreaseSellIn();
+    let hasPassedSellingDate = this.daysLeftToSell < 0;
+    if (hasPassedSellingDate && this.quality > 0) {
+      this.decreaseQuality();
+    }
+  }
+
+  public updateConcertTicketsQuality() {
+    if (this.hasNotReachedTopQualityLevel()) {
+      this.increaseQuality();
+      if (this.isTheConcertDueInLessThan(11)) {
+        this.increaseQuality();
+      }
+      if (this.isTheConcertDueInLessThan(6)) {
+        this.increaseQuality();
+      }
+    }
+    if (this.name != 'Sulfuras, Hand of Ragnaros') {
+      this.decreaseSellIn();
+    }
+    const hasPassedSellingDate = this.daysLeftToSell < 0;
+    if (hasPassedSellingDate) {
+      this.restartQuality();
+    }
+  }
+
+  public updateAgedBrieQuality() {
+    if (this.hasNotReachedTopQualityLevel()) {
+      this.increaseQuality();
+    }
+    this.decreaseSellIn();
+    let hasPassedSellingDate = this.daysLeftToSell < 0;
+    if (hasPassedSellingDate) {
+      if (this.hasNotReachedTopQualityLevel()) {
+        this.increaseQuality();
+      }
+    }
+  }
+
+  private isTheConcertDueInLessThan(days: number) {
+    return this.daysLeftToSell < days
+      && this.hasNotReachedTopQualityLevel();
+  }
 }
 
 export class GildedRose {
@@ -41,69 +89,22 @@ export class GildedRose {
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
-      let productName = this.items[i].name;
+      let item = this.items[i];
+      let productName = item.name;
       if (productName == 'Backstage passes to a TAFKAL80ETC concert') {
-        GildedRose.updateConcertTicketsQuality(this.items[i]);
+        item.updateConcertTicketsQuality();
         continue;
       }
 
       if (productName == 'Aged Brie') {
-        GildedRose.updateAgedBrieQuality(this.items[i]);
+        item.updateAgedBrieQuality();
         continue;
       }
-      if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-        GildedRose.decreaseOtherProductsQuality(this.items[i]);
+      if (item.name != 'Sulfuras, Hand of Ragnaros') {
+        item.decreaseOtherProductsQuality();
       }
     }
 
     return this.items;
-  }
-
-  private static decreaseOtherProductsQuality(item: Item) {
-    if (item.quality > 0) {
-      item.decreaseQuality();
-    }
-    item.decreaseSellIn();
-    let hasPassedSellingDate = item.daysLeftToSell < 0;
-    if (hasPassedSellingDate && item.quality > 0) {
-      item.decreaseQuality();
-    }
-  }
-
-  private static updateConcertTicketsQuality(item: Item) {
-    if (item.hasNotReachedTopQualityLevel()) {
-      item.increaseQuality();
-      if (GildedRose.isTheConcertDueInLessThan(11, item)) {
-        item.increaseQuality();
-      }
-      if (GildedRose.isTheConcertDueInLessThan(6, item)) {
-        item.increaseQuality();
-      }
-    }
-    if (item.name != 'Sulfuras, Hand of Ragnaros') {
-      item.decreaseSellIn();
-    }
-    const hasPassedSellingDate = item.daysLeftToSell < 0;
-    if (hasPassedSellingDate) {
-      item.restartQuality();
-    }
-  }
-
-  private static updateAgedBrieQuality(item: Item) {
-    if (item.hasNotReachedTopQualityLevel()) {
-      item.increaseQuality();
-    }
-    item.decreaseSellIn();
-    let hasPassedSellingDate = item.daysLeftToSell < 0;
-    if (hasPassedSellingDate) {
-      if (item.hasNotReachedTopQualityLevel()) {
-        item.increaseQuality();
-      }
-    }
-  }
-
-  private static isTheConcertDueInLessThan(days: number, item: Item) {
-    return item.daysLeftToSell < days
-      && item.hasNotReachedTopQualityLevel();
   }
 }
