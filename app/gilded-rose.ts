@@ -73,10 +73,10 @@ export class GildedRose {
   private updateConcertTicketsQuality(i: number) {
     if (this.items[i].hasNotReachedTopQualityLevel()) {
       this.items[i].increaseQuality();
-      if (this.isTheConcertDueInLessThan(11, i)) {
+      if (this.isTheConcertDueInLessThan(11, this.items[i])) {
         this.items[i].increaseQuality();
       }
-      if (this.isTheConcertDueInLessThan(6, i)) {
+      if (this.isTheConcertDueInLessThan(6, this.items[i])) {
         this.items[i].increaseQuality();
       }
     }
@@ -102,8 +102,8 @@ export class GildedRose {
     }
   }
 
-  private isTheConcertDueInLessThan(days: number, i: number) {
-    return this.items[i].daysLeftToSell < days
-      && this.items[i].hasNotReachedTopQualityLevel();
+  private isTheConcertDueInLessThan(days: number, item: Item) {
+    return item.daysLeftToSell < days
+      && item.hasNotReachedTopQualityLevel();
   }
 }
