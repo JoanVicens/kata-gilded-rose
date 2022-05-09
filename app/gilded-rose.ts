@@ -52,21 +52,21 @@ export class GildedRose {
         continue;
       }
       if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-        this.decreaseOtherProductsQuality(i);
+        this.decreaseOtherProductsQuality(this.items[i]);
       }
     }
 
     return this.items;
   }
 
-  private decreaseOtherProductsQuality(i: number) {
-    if (this.items[i].quality > 0) {
-      this.items[i].decreaseQuality();
+  private decreaseOtherProductsQuality(item: Item) {
+    if (item.quality > 0) {
+      item.decreaseQuality();
     }
-    this.items[i].decreaseSellIn();
-    let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
-    if (hasPassedSellingDate && this.items[i].quality > 0) {
-      this.items[i].decreaseQuality();
+    item.decreaseSellIn();
+    let hasPassedSellingDate = item.daysLeftToSell < 0;
+    if (hasPassedSellingDate && item.quality > 0) {
+      item.decreaseQuality();
     }
   }
 
