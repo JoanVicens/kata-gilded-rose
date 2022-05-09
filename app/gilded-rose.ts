@@ -43,23 +43,23 @@ export class GildedRose {
     for (let i = 0; i < this.items.length; i++) {
       let productName = this.items[i].name;
       if (productName == 'Backstage passes to a TAFKAL80ETC concert') {
-        this.updateConcertTicketsQuality(this.items[i]);
+        GildedRose.updateConcertTicketsQuality(this.items[i]);
         continue;
       }
 
       if (productName == 'Aged Brie') {
-        this.updateAgedBrieQuality(this.items[i]);
+        GildedRose.updateAgedBrieQuality(this.items[i]);
         continue;
       }
       if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-        this.decreaseOtherProductsQuality(this.items[i]);
+        GildedRose.decreaseOtherProductsQuality(this.items[i]);
       }
     }
 
     return this.items;
   }
 
-  private decreaseOtherProductsQuality(item: Item) {
+  private static decreaseOtherProductsQuality(item: Item) {
     if (item.quality > 0) {
       item.decreaseQuality();
     }
@@ -70,13 +70,13 @@ export class GildedRose {
     }
   }
 
-  private updateConcertTicketsQuality(item: Item) {
+  private static updateConcertTicketsQuality(item: Item) {
     if (item.hasNotReachedTopQualityLevel()) {
       item.increaseQuality();
-      if (this.isTheConcertDueInLessThan(11, item)) {
+      if (GildedRose.isTheConcertDueInLessThan(11, item)) {
         item.increaseQuality();
       }
-      if (this.isTheConcertDueInLessThan(6, item)) {
+      if (GildedRose.isTheConcertDueInLessThan(6, item)) {
         item.increaseQuality();
       }
     }
@@ -89,7 +89,7 @@ export class GildedRose {
     }
   }
 
-  private updateAgedBrieQuality(item: Item) {
+  private static updateAgedBrieQuality(item: Item) {
     if (item.hasNotReachedTopQualityLevel()) {
       item.increaseQuality();
     }
@@ -102,7 +102,7 @@ export class GildedRose {
     }
   }
 
-  private isTheConcertDueInLessThan(days: number, item: Item) {
+  private static isTheConcertDueInLessThan(days: number, item: Item) {
     return item.daysLeftToSell < days
       && item.hasNotReachedTopQualityLevel();
   }
