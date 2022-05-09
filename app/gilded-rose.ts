@@ -48,7 +48,7 @@ export class GildedRose {
       }
 
       if (productName == 'Aged Brie') {
-        this.updateAgedBrie(i);
+        this.updateAgedBrie(this.items[i]);
         continue;
       }
       if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
@@ -89,15 +89,15 @@ export class GildedRose {
     }
   }
 
-  private updateAgedBrie(i: number) {
-    if (this.items[i].hasNotReachedTopQualityLevel()) {
-      this.items[i].increaseQuality();
+  private updateAgedBrie(item: Item) {
+    if (item.hasNotReachedTopQualityLevel()) {
+      item.increaseQuality();
     }
-    this.items[i].decreaseSellIn();
-    let hasPassedSellingDate = this.items[i].daysLeftToSell < 0;
+    item.decreaseSellIn();
+    let hasPassedSellingDate = item.daysLeftToSell < 0;
     if (hasPassedSellingDate) {
-      if (this.items[i].hasNotReachedTopQualityLevel()) {
-        this.items[i].increaseQuality();
+      if (item.hasNotReachedTopQualityLevel()) {
+        item.increaseQuality();
       }
     }
   }
