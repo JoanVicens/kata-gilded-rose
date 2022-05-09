@@ -48,7 +48,7 @@ export class GildedRose {
       }
 
       if (productName == 'Aged Brie') {
-        this.updateAgedBrie(this.items[i]);
+        this.updateAgedBrieQuality(this.items[i]);
         continue;
       }
       if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
@@ -89,7 +89,7 @@ export class GildedRose {
     }
   }
 
-  private updateAgedBrie(item: Item) {
+  private updateAgedBrieQuality(item: Item) {
     if (item.hasNotReachedTopQualityLevel()) {
       item.increaseQuality();
     }
