@@ -1,24 +1,14 @@
-import { Item, GildedRose } from '@/gilded-rose';
+import {GildedRose, Item} from '@/gilded-rose';
 
 describe('Gilded Rose', () => {
-  xit('should foo', () => {
-    const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
-    const items = gildedRose.updateQuality();
-    expect(items[0].name).toBe('fixme');
-  });
-
   it('should do a snapshot for 2 days', function () {
-    let items = [
-      new Item("+5 Dexterity Vest", 10, 20), //
-      new Item("Aged Brie", 2, 0), //
-      new Item("Elixir of the Mongoose", 5, 7), //
-      new Item("Sulfuras, Hand of Ragnaros", 0, 80), //
-      new Item("Sulfuras, Hand of Ragnaros", -1, 80),
-      new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
-      new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
-      new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
-      // this conjured item does not work properly yet
-      new Item("Conjured Mana Cake", 3, 6)];
+    const items: Item[] = [
+      {name: "Aged Brie", daysLeftToSell: 2, quality: 0},
+      {name: "Sulfuras, Hand of Ragnaros", daysLeftToSell: 0, quality: 80},
+      {name: "Sulfuras, Hand of Ragnaros", daysLeftToSell: -1, quality: 80},
+      {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 15, quality: 20},
+      {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 10, quality: 49},
+      {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 5, quality: 49}];
 
     const gildedRose = new GildedRose(items);
 
@@ -29,17 +19,13 @@ describe('Gilded Rose', () => {
   });
 
   it('should do a snapshot for 10 days', function () {
-    let items = [
-      new Item("+5 Dexterity Vest", 10, 20), //
-      new Item("Aged Brie", 2, 0), //
-      new Item("Elixir of the Mongoose", 5, 7), //
-      new Item("Sulfuras, Hand of Ragnaros", 0, 80), //
-      new Item("Sulfuras, Hand of Ragnaros", -1, 80),
-      new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
-      new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
-      new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
-      // this conjured item does not work properly yet
-      new Item("Conjured Mana Cake", 3, 6)];
+    const items: Item[] = [
+      {name: "Aged Brie", daysLeftToSell: 2, quality: 0},
+      {name: "Sulfuras, Hand of Ragnaros", daysLeftToSell: 0, quality: 80},
+      {name: "Sulfuras, Hand of Ragnaros", daysLeftToSell: -1, quality: 80},
+      {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 15, quality: 20},
+      {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 10, quality: 49},
+      {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 5, quality: 49}];
 
     const gildedRose = new GildedRose(items);
 

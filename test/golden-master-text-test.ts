@@ -1,24 +1,19 @@
-import { Item, GildedRose } from '../app/gilded-rose';
+import {GildedRose, Item} from '@/gilded-rose';
 
-const items = [
-  new Item("+5 Dexterity Vest", 10, 20), //
-  new Item("Aged Brie", 2, 0), //
-  new Item("Elixir of the Mongoose", 5, 7), //
-  new Item("Sulfuras, Hand of Ragnaros", 0, 80), //
-  new Item("Sulfuras, Hand of Ragnaros", -1, 80),
-  new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
-  new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
-  new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
-  // this conjured item does not work properly yet
-  new Item("Conjured Mana Cake", 3, 6)];
-
+const items: Item[] = [
+  {name: "Aged Brie", daysLeftToSell: 2, quality: 0},
+  {name: "Sulfuras, Hand of Ragnaros", daysLeftToSell: 0, quality: 80},
+  {name: "Sulfuras, Hand of Ragnaros", daysLeftToSell: -1, quality: 80},
+  {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 15, quality: 20},
+  {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 10, quality: 49},
+  {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 5, quality: 49}];
 
 const gildedRose = new GildedRose(items);
 
 let days: number = 2;
 if (process.argv.length > 2) {
-    days = +process.argv[2];
-  }
+  days = +process.argv[2];
+}
 
 for (let i = 0; i < days; i++) {
   console.log("-------- day " + i + " --------");
