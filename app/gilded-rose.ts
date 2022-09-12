@@ -70,32 +70,24 @@ const updateAgedBrieQuality = (item: Item) => {
   }
 };
 
-export class GildedRose {
-  items: Array<Item>;
-
-  constructor(items = [] as Array<Item>) {
-    this.items = items;
-  }
-
-  updateQuality() {
-    for (let i = 0; i < this.items.length; i++) {
-      let item = this.items[i];
-      let productName = item.name;
-      if (productName == 'Backstage passes to a TAFKAL80ETC concert') {
-        updateConcertTicketsQuality(item);
-        continue;
-      }
-
-      if (productName == 'Aged Brie') {
-        updateAgedBrieQuality(item);
-        continue;
-      }
-
-      if (item.name != 'Sulfuras, Hand of Ragnaros') {
-        decreaseOtherProductsQuality(item);
-      }
+export const updateQuality = (items: Item[]) => {
+  for (let i = 0; i < items.length; i++) {
+    let item = items[i];
+    let productName = item.name;
+    if (productName == 'Backstage passes to a TAFKAL80ETC concert') {
+      updateConcertTicketsQuality(item);
+      continue;
     }
 
-    return this.items;
+    if (productName == 'Aged Brie') {
+      updateAgedBrieQuality(item);
+      continue;
+    }
+
+    if (item.name != 'Sulfuras, Hand of Ragnaros') {
+      decreaseOtherProductsQuality(item);
+    }
   }
-}
+
+  return items;
+};

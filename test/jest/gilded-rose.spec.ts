@@ -1,4 +1,4 @@
-import {GildedRose, Item} from '@/gilded-rose';
+import {Item, updateQuality} from '@/gilded-rose';
 
 describe('Gilded Rose', () => {
   it('should do a snapshot for 2 days', function () {
@@ -10,10 +10,8 @@ describe('Gilded Rose', () => {
       {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 10, quality: 49},
       {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 5, quality: 49}];
 
-    const gildedRose = new GildedRose(items);
-
-    gildedRose.updateQuality();
-    gildedRose.updateQuality();
+    updateQuality(items);
+    updateQuality(items);
 
     expect(items).toMatchSnapshot();
   });
@@ -27,18 +25,16 @@ describe('Gilded Rose', () => {
       {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 10, quality: 49},
       {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 5, quality: 49}];
 
-    const gildedRose = new GildedRose(items);
-
-    gildedRose.updateQuality();
-    gildedRose.updateQuality();
-    gildedRose.updateQuality();
-    gildedRose.updateQuality();
-    gildedRose.updateQuality();
-    gildedRose.updateQuality();
-    gildedRose.updateQuality();
-    gildedRose.updateQuality();
-    gildedRose.updateQuality();
-    gildedRose.updateQuality();
+    updateQuality(items);
+    updateQuality(items);
+    updateQuality(items);
+    updateQuality(items);
+    updateQuality(items);
+    updateQuality(items);
+    updateQuality(items);
+    updateQuality(items);
+    updateQuality(items);
+    updateQuality(items);
 
     expect(items).toMatchSnapshot();
   });

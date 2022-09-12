@@ -1,4 +1,4 @@
-import {GildedRose, Item} from '@/gilded-rose';
+import {Item, updateQuality} from '@/gilded-rose';
 
 const items: Item[] = [
   {name: "Aged Brie", daysLeftToSell: 2, quality: 0},
@@ -7,8 +7,6 @@ const items: Item[] = [
   {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 15, quality: 20},
   {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 10, quality: 49},
   {name: "Backstage passes to a TAFKAL80ETC concert", daysLeftToSell: 5, quality: 49}];
-
-const gildedRose = new GildedRose(items);
 
 let days: number = 2;
 if (process.argv.length > 2) {
@@ -23,5 +21,5 @@ for (let i = 0; i < days; i++) {
 
   });
   console.log();
-  gildedRose.updateQuality();
+  updateQuality(items);
 }
