@@ -1,6 +1,7 @@
 import { Item } from "./Item";
 
 export class GildedRose {
+  private static readonly MAX_ITEM_QUALITY = 50;
   items: Array<Item>;
 
   constructor(items = [] as Array<Item>) {
@@ -8,7 +9,7 @@ export class GildedRose {
   }
 
   private incrementItemQuality(item: Item): void {
-    if (item.quality >= 50) {
+    if (item.quality >= GildedRose.MAX_ITEM_QUALITY) {
       return;
     }
 
@@ -19,6 +20,19 @@ export class GildedRose {
     }
 
     item.quality += 1;
+
+    if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+      if (item.sellIn < 11) {
+        item.quality += 1;
+      }
+      if (item.sellIn < 6) {
+        item.quality += 1;
+      }
+
+      if (item.quality > GildedRose.MAX_ITEM_QUALITY) {
+        item.quality = GildedRose.MAX_ITEM_QUALITY;
+      }
+    }
   }
 
   private decrementItemQuality(item: Item): void {
@@ -55,16 +69,8 @@ export class GildedRose {
       item.name != "Sulfuras, Hand of Ragnaros"
     ) {
       this.decrementItemQuality(item);
-    } else if (item.quality < 50) {
+    } else if (item.quality < GildedRose.MAX_ITEM_QUALITY) {
       this.incrementItemQuality(item);
-      if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
-        if (item.sellIn < 11) {
-          this.incrementItemQuality(item);
-        }
-        if (item.sellIn < 6) {
-          this.incrementItemQuality(item);
-        }
-      }
     }
 
     this.decreaseItemSellIn(item);
