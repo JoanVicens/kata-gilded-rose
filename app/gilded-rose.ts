@@ -7,49 +7,56 @@ export class GildedRose {
     this.items = items;
   }
 
+  private incrementItemQuality(item: Item): void {
+    if (item.quality < 50) {
+      item.quality += 1;
+    }
+  }
+
+  private decrementItemQuality(item: Item): void {
+    if (item.quality > 0) {
+      item.quality -= 1;
+    }
+  }
+
+  private decreaseItemSellIn(item: Item): void {
+    if (item.name != "Sulfuras, Hand of Ragnaros") {
+      item.sellIn = item.sellIn - 1;
+    }
+  }
+
   private updateItemQuality(item: Item): void {
     if (
       item.name != "Aged Brie" &&
       item.name != "Backstage passes to a TAFKAL80ETC concert" &&
-      item.name != "Sulfuras, Hand of Ragnaros" &&
-      item.quality > 0
+      item.name != "Sulfuras, Hand of Ragnaros"
     ) {
-      item.quality = item.quality - 1;
+      this.decrementItemQuality(item);
     } else if (item.quality < 50) {
-      item.quality = item.quality + 1;
+      this.incrementItemQuality(item);
       if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
         if (item.sellIn < 11) {
-          if (item.quality < 50) {
-            item.quality = item.quality + 1;
-          }
+          this.incrementItemQuality(item);
         }
         if (item.sellIn < 6) {
-          if (item.quality < 50) {
-            item.quality = item.quality + 1;
-          }
+          this.incrementItemQuality(item);
         }
       }
     }
 
-    if (item.name != "Sulfuras, Hand of Ragnaros") {
-      item.sellIn = item.sellIn - 1;
-    }
+    this.decreaseItemSellIn(item);
 
     if (item.sellIn < 0) {
       if (item.name != "Aged Brie") {
         if (item.name != "Backstage passes to a TAFKAL80ETC concert") {
-          if (item.quality > 0) {
-            if (item.name != "Sulfuras, Hand of Ragnaros") {
-              item.quality = item.quality - 1;
-            }
+          if (item.name != "Sulfuras, Hand of Ragnaros") {
+            this.decrementItemQuality(item);
           }
         } else {
-          item.quality = item.quality - item.quality;
+          item.quality = 0;
         }
       } else {
-        if (item.quality < 50) {
-          item.quality = item.quality + 1;
-        }
+        this.incrementItemQuality(item);
       }
     }
   }
