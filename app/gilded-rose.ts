@@ -59,6 +59,11 @@ export class GildedRose {
     }
 
     if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
+      this.updateBackstagePasses(item);
+      return;
+    }
+
+    if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
       if (item.quality < GildedRose.MAX_ITEM_QUALITY) {
         this.incrementItemQuality(item);
       }
@@ -70,6 +75,17 @@ export class GildedRose {
 
     if (item.sellIn < 0) {
       this.decrementItemQuality(item);
+    }
+  }
+  updateBackstagePasses(backstagePasses: Item) {
+    if (backstagePasses.quality < GildedRose.MAX_ITEM_QUALITY) {
+      this.incrementItemQuality(backstagePasses);
+    }
+
+    backstagePasses.sellIn = backstagePasses.sellIn - 1;
+
+    if (backstagePasses.sellIn < 0) {
+      this.decrementItemQuality(backstagePasses);
     }
   }
   private updateSulfuras(sulfuras: Item) {}
