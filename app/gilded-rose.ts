@@ -2,18 +2,23 @@ import { Item } from "./Item";
 
 export class GildedRose {
   private static readonly MAX_ITEM_QUALITY = 50;
+  private static readonly BACK_STAGE_QUALITY_INCREASE = 1;
+  private static readonly AGED_BRIE_NORMAL_QUALITY_INCREASE = 1;
+  private static readonly AGED_BRIE_EXPIRED_QUALITY_INCREASE = 2;
+
   items: Array<Item>;
 
   constructor(items = [] as Array<Item>) {
     this.items = items;
   }
 
-  private incrementItemQuality(item: Item): void {
-    if (item.quality >= GildedRose.MAX_ITEM_QUALITY) {
+  private incrementItemQualityBy(item: Item, amount: number): void {
+    if (item.quality + amount >= GildedRose.MAX_ITEM_QUALITY) {
+      item.quality = GildedRose.MAX_ITEM_QUALITY;
       return;
     }
 
-    item.quality += 1;
+    item.quality += amount;
   }
 
   private decrementItemQuality(item: Item): void {
@@ -50,20 +55,24 @@ export class GildedRose {
       this.decrementItemQuality(item);
     }
   }
+
   private updateBackstagePasses(backstagePasses: Item) {
-    if (backstagePasses.quality < GildedRose.MAX_ITEM_QUALITY) {
-      backstagePasses.quality += 1;
+    this.incrementItemQualityBy(
+      backstagePasses,
+      GildedRose.BACK_STAGE_QUALITY_INCREASE
+    );
 
-      if (backstagePasses.sellIn < 11) {
-        backstagePasses.quality += 1;
-      }
-      if (backstagePasses.sellIn < 6) {
-        backstagePasses.quality += 1;
-      }
-
-      if (backstagePasses.quality > GildedRose.MAX_ITEM_QUALITY) {
-        backstagePasses.quality = GildedRose.MAX_ITEM_QUALITY;
-      }
+    if (backstagePasses.sellIn < 11) {
+      this.incrementItemQualityBy(
+        backstagePasses,
+        GildedRose.BACK_STAGE_QUALITY_INCREASE
+      );
+    }
+    if (backstagePasses.sellIn < 6) {
+      this.incrementItemQualityBy(
+        backstagePasses,
+        GildedRose.BACK_STAGE_QUALITY_INCREASE
+      );
     }
 
     backstagePasses.sellIn = backstagePasses.sellIn - 1;
@@ -75,10 +84,12 @@ export class GildedRose {
   private updateSulfuras(sulfuras: Item) {}
 
   private updateAgedBrie(agedBrie: Item) {
-    if (agedBrie.quality < GildedRose.MAX_ITEM_QUALITY) {
-      const increaseBy = agedBrie.sellIn <= 0 ? 2 : 1;
-      agedBrie.quality += increaseBy;
-    }
+    const increaseBy =
+      agedBrie.sellIn <= 0
+        ? GildedRose.AGED_BRIE_EXPIRED_QUALITY_INCREASE
+        : GildedRose.AGED_BRIE_NORMAL_QUALITY_INCREASE;
+
+    this.incrementItemQualityBy(agedBrie, increaseBy);
 
     agedBrie.sellIn = agedBrie.sellIn - 1;
   }
