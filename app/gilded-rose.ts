@@ -12,11 +12,20 @@ export class GildedRose {
       return;
     }
 
+    if (item.name === "Aged Brie" && item.sellIn <= 0) {
+      item.quality += 2;
+
+      return;
+    }
+
     item.quality += 1;
   }
 
   private decrementItemQuality(item: Item): void {
-    if (item.name === "Sulfuras, Hand of Ragnaros") {
+    if (
+      item.name === "Sulfuras, Hand of Ragnaros" ||
+      item.name === "Aged Brie"
+    ) {
       return;
     }
 
@@ -61,11 +70,7 @@ export class GildedRose {
     this.decreaseItemSellIn(item);
 
     if (item.sellIn < 0) {
-      if (item.name != "Aged Brie") {
-        this.decrementItemQuality(item);
-      } else {
-        this.incrementItemQuality(item);
-      }
+      this.decrementItemQuality(item);
     }
   }
 
