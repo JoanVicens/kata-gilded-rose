@@ -21,7 +21,7 @@ export class GildedRose {
 
     item.quality += 1;
 
-    if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+    if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
       if (item.sellIn < 11) {
         item.quality += 1;
       }
@@ -64,13 +64,15 @@ export class GildedRose {
 
   private updateItemQuality(item: Item): void {
     if (
-      item.name != "Aged Brie" &&
-      item.name != "Backstage passes to a TAFKAL80ETC concert" &&
-      item.name != "Sulfuras, Hand of Ragnaros"
+      item.name === "Aged Brie" ||
+      item.name === "Backstage passes to a TAFKAL80ETC concert" ||
+      item.name === "Sulfuras, Hand of Ragnaros"
     ) {
+      if (item.quality < GildedRose.MAX_ITEM_QUALITY) {
+        this.incrementItemQuality(item);
+      }
+    } else {
       this.decrementItemQuality(item);
-    } else if (item.quality < GildedRose.MAX_ITEM_QUALITY) {
-      this.incrementItemQuality(item);
     }
 
     this.decreaseItemSellIn(item);
