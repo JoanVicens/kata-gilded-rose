@@ -30,10 +30,6 @@ export class GildedRose {
   }
 
   private decrementItemQuality(item: Item): void {
-    if (item.name === "Sulfuras, Hand of Ragnaros") {
-      return;
-    }
-
     if (
       item.name === "Backstage passes to a TAFKAL80ETC concert" &&
       item.sellIn < 0
@@ -48,9 +44,7 @@ export class GildedRose {
   }
 
   private decreaseItemSellIn(item: Item): void {
-    if (item.name != "Sulfuras, Hand of Ragnaros") {
-      item.sellIn = item.sellIn - 1;
-    }
+    item.sellIn = item.sellIn - 1;
   }
 
   private updateItemQuality(item: Item): void {
@@ -59,10 +53,12 @@ export class GildedRose {
       return;
     }
 
-    if (
-      item.name === "Backstage passes to a TAFKAL80ETC concert" ||
-      item.name === "Sulfuras, Hand of Ragnaros"
-    ) {
+    if (item.name === "Sulfuras, Hand of Ragnaros") {
+      this.updateSulfuras(item);
+      return;
+    }
+
+    if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
       if (item.quality < GildedRose.MAX_ITEM_QUALITY) {
         this.incrementItemQuality(item);
       }
@@ -76,6 +72,8 @@ export class GildedRose {
       this.decrementItemQuality(item);
     }
   }
+  private updateSulfuras(sulfuras: Item) {}
+
   private updateAgedBrie(agedBrie: Item) {
     if (agedBrie.quality < GildedRose.MAX_ITEM_QUALITY) {
       const increaseBy = agedBrie.sellIn <= 0 ? 2 : 1;
