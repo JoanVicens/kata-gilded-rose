@@ -14,30 +14,9 @@ export class GildedRose {
     }
 
     item.quality += 1;
-
-    if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
-      if (item.sellIn < 11) {
-        item.quality += 1;
-      }
-      if (item.sellIn < 6) {
-        item.quality += 1;
-      }
-
-      if (item.quality > GildedRose.MAX_ITEM_QUALITY) {
-        item.quality = GildedRose.MAX_ITEM_QUALITY;
-      }
-    }
   }
 
   private decrementItemQuality(item: Item): void {
-    if (
-      item.name === "Backstage passes to a TAFKAL80ETC concert" &&
-      item.sellIn < 0
-    ) {
-      item.quality = 0;
-      return;
-    }
-
     if (item.quality > 0) {
       item.quality -= 1;
     }
@@ -63,13 +42,7 @@ export class GildedRose {
       return;
     }
 
-    if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
-      if (item.quality < GildedRose.MAX_ITEM_QUALITY) {
-        this.incrementItemQuality(item);
-      }
-    } else {
-      this.decrementItemQuality(item);
-    }
+    this.decrementItemQuality(item);
 
     this.decreaseItemSellIn(item);
 
@@ -77,15 +50,26 @@ export class GildedRose {
       this.decrementItemQuality(item);
     }
   }
-  updateBackstagePasses(backstagePasses: Item) {
+  private updateBackstagePasses(backstagePasses: Item) {
     if (backstagePasses.quality < GildedRose.MAX_ITEM_QUALITY) {
-      this.incrementItemQuality(backstagePasses);
+      backstagePasses.quality += 1;
+
+      if (backstagePasses.sellIn < 11) {
+        backstagePasses.quality += 1;
+      }
+      if (backstagePasses.sellIn < 6) {
+        backstagePasses.quality += 1;
+      }
+
+      if (backstagePasses.quality > GildedRose.MAX_ITEM_QUALITY) {
+        backstagePasses.quality = GildedRose.MAX_ITEM_QUALITY;
+      }
     }
 
     backstagePasses.sellIn = backstagePasses.sellIn - 1;
 
     if (backstagePasses.sellIn < 0) {
-      this.decrementItemQuality(backstagePasses);
+      backstagePasses.quality = 0;
     }
   }
   private updateSulfuras(sulfuras: Item) {}
